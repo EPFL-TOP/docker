@@ -16,7 +16,7 @@
 # TUTORIAL ONLY
 # In this example we'll use a smaller image to speed up the build process.
 # Basic image based on ubuntu 22.04
-FROM --platform=linux/amd64 docker.io/library/ubuntu:22.04
+FROM docker.io/library/ubuntu:22.04
 
 #####################################
 # RCP CaaS requirement (Storage)

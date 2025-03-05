@@ -10,8 +10,16 @@ docker build . --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 --ta
     --build-arg LDAP_USERNAME=helsens \
     --build-arg LDAP_UID=267988
 
+
+docker build . --tag registry.rcp.epfl.ch/upoates-helsens/plantseg-env:v0.1 \
+    --build-arg LDAP_GROUPNAME=UPOATES-StaffU \
+    --build-arg LDAP_GID=11349 \
+    --build-arg LDAP_USERNAME=helsens \
+    --build-arg LDAP_UID=267988
+
 try the container
 docker run -it registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 bash
+docker run -it registry.rcp.epfl.ch/upoates-helsens/plantseg-env:v0.1 bash
 
 
 to register to harbor
