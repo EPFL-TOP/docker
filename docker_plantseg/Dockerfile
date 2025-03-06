@@ -87,8 +87,11 @@ RUN conda update -n base conda \
 
 RUN conda init
 RUN bash
-RUN conda install -c pytorch -c nvidia -c conda-forge pytorch pytorch-cuda=12.1 plant-seg --no-channel-priority
+#RUN conda install -c pytorch -c nvidia -c conda-forge pytorch pytorch-cuda=12.1 plant-seg --no-channel-priority
+RUN pip3 install torch torchvision torchaudio
 
+
+RUN conda install conda-forge::plant-seg
 
 # Set the working directory in your user's home
 WORKDIR /home/${LDAP_USERNAME}
@@ -96,4 +99,3 @@ USER ${LDAP_USERNAME}
 
 RUN git clone https://github.com/EPFL-TOP/3d_segmentation.git
 
-#RUN pip install cellpose

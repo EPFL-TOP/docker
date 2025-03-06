@@ -2,7 +2,7 @@
 
 ## Copy data to RCP cluster
 
-To copy data to the RCP cluster
+To copy data to the RCP cluster, need to have first copied the data on the NAS-RCP. A folder exist for that purpose 
 ```bash
 ssh <USERNAME>@haas001.rcp.epfl.ch
 ```
@@ -10,6 +10,9 @@ ssh <USERNAME>@haas001.rcp.epfl.ch
 id
 
 uid=267988(helsens) gid=11349(UPOATES-StaffU)
+
+
+docker buildx build --platform linux/amd64 --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.2  --build-arg LDAP_GROUPNAME=UPOATES-StaffU --build-arg LDAP_GID=11349 --build-arg LDAP_USERNAME=helsens  --build-arg LDAP_UID=267988 .
 
 docker build . --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:latest \
     --build-arg LDAP_GROUPNAME=UPOATES-StaffU \
