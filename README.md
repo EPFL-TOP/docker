@@ -12,6 +12,8 @@ id
 uid=267988(helsens) gid=11349(UPOATES-StaffU)
 
 
+
+
 docker buildx build --platform linux/amd64 --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.2  --build-arg LDAP_GROUPNAME=UPOATES-StaffU --build-arg LDAP_GID=11349 --build-arg LDAP_USERNAME=helsens  --build-arg LDAP_UID=267988 .
 
 docker build . --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 --tag registry.rcp.epfl.ch/upoates-helsens/cellpose-env:latest \
@@ -31,6 +33,7 @@ try the container
 docker run -it registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 bash
 docker run -it registry.rcp.epfl.ch/upoates-helsens/plantseg-env:v0.1 bash
 
+docker run -it --mount type=bind,source=/Volumes/upoates,target=/mydata registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 bash
 
 to register to harbor
 docker login registry.rcp.epfl.ch
@@ -38,7 +41,11 @@ docker login registry.rcp.epfl.ch
 docker push registry.rcp.epfl.ch/upoates-helsens/cellpose-env:latest
 docker push registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1
 
+get the file
+curl https://wiki.rcp.epfl.ch/public/files/kube-config.yaml -o ~/.kube/config && chmod 600 ~/.kube/config
 
+set the cluster
+runai config cluster rcp-caas-prod
 
 Login to runAI
 runai login
@@ -46,6 +53,7 @@ runai login
 list projects
 runai list project
 
+runai config project upoates-helsens
 
 PVC -> upoates-scratch
 kubectl get pvc -n  runai-upoates-helsens

@@ -16,9 +16,8 @@
 # TUTORIAL ONLY
 # In this example we'll use a smaller image to speed up the build process.
 # Basic image based on ubuntu 22.04
-#FROM docker.io/library/ubuntu:22.04
-
-FROM --platform=linux/amd64 nvcr.io/nvidia/pytorch:23.12-py3
+FROM docker.io/library/ubuntu:22.04
+#FROM --platform=linux/amd64 nvcr.io/nvidia/pytorch:23.12-py3
 
 
 
