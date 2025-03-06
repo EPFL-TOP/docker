@@ -18,8 +18,8 @@
 # Basic image based on ubuntu 22.04
 #FROM mambaorg/micromamba:ubuntu22.04
 
-#FROM mambaorg/micromamba:2.0.5
 FROM --platform=linux/amd64 docker.io/library/ubuntu:22.04
+#FROM --platform=linux/amd64 nvcr.io/nvidia/pytorch:23.12-py3
 
 #COPY --chown=$MAMBA_USER:$MAMBA_USER env.yaml /tmp/env.yaml
 
@@ -62,6 +62,7 @@ RUN apt-get install -y libgles2-mesa
 RUN apt install python3-pip -y
 RUN apt-get install -y git
 RUN apt-get install -y wget
+#RUN apt-get install -y nvidia-smi
 
 RUN apt-get update && \
     apt-get install -y wget bzip2 sudo && \

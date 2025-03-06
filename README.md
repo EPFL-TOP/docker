@@ -1,5 +1,12 @@
 # docker
-ssh jumphost
+
+## Copy data to RCP cluster
+
+To copy data to the RCP cluster
+```bash
+ssh <USERNAME>@haas001.rcp.epfl.ch
+```
+
 id
 
 uid=267988(helsens) gid=11349(UPOATES-StaffU)
@@ -61,3 +68,23 @@ runai submit \
 
 connect to the job container when running
 runai bash my-demo-job
+
+
+ runai submit \                                                               
+  --name cellpose-test-6 \
+  --image registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 \
+  --gpu 1. \
+  --existing-pvc claimname=upoates-scratch,path=/scratch \
+  --command \
+  -- /usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose.py /scratch/data/feyza/pos1_Channel1_cropped /scratch/data/feyza/cellpose_training/2d/models/nuclei_h2b
+
+
+  runai submit \                                                               
+  --name plantseg-test-1 \
+  --image registry.rcp.epfl.ch/upoates-helsens/plantseg-env:v0.1 \
+  --gpu 1. \
+  --existing-pvc claimname=upoates-scratch,path=/scratch \
+  --command \
+  -- conda init \
+  -- bash
+
