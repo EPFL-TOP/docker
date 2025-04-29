@@ -1,6 +1,6 @@
 #python sendjobs.py --name cellpose-test-2 --image registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 --gpu 1. --input /scratch/feyza/input/test2c --output /scratch/output/feyza --model /scratch/data/feyza/cellpose_training/2d/models/CP_20241007_h2bxncad -d 30 -c 2 1
 import argparse
-import os, sys
+import os, sys, re
 import subprocess
 import glob
 from pathlib import Path
@@ -48,7 +48,9 @@ def main():
         if count>0 and args.test:break
 
         img=img_file.split('/')[-1]
-        name = args.name + '-' + img.split('.')[0].replace('_','-').replace('--','-').replace(' ','-')
+        img_base = img.split('.')[0]
+        safe_img_name = re.sub(r'[^a-z0-9]+', '-', img_base.lower()).strip('-')
+        name = f"{args.name}-{safe_img_name}"
         print('sending image = ',img, '  with job name  ', name)
         cmd='runai submit --name {} --image {} --gpu {} --existing-pvc claimname=upoates-scratch,path=/scratch --command -- /usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose.py {} {} {} --diameter {} --channels {} --image {} --anisotropy {} --minsize {}'.format(name, args.image, args.gpu, args.input, args.output, args.model, args.diameter, channels, img, args.anisotropy, args.minsize)
 
