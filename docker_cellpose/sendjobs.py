@@ -50,7 +50,7 @@ def main():
         img=img_file.split('/')[-1]
         name = args.name + '-' + img.split('.')[0].replace('_','-').replace('--','-').replace(' ','-')
         print('sending image = ',img, '  with job name  ', name)
-        cmd='runai submit --name {} --image {} --gpu {} --existing-pvc claimname=upoates-scratch,path=/scratch --command -- /usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose.py {} {} {} --diameter {} --channels {} --image {} --anisotropy {} --minsize {}'.format(name, args.image, args.gpu, args.input, args.output, args.model, args.diameter, channels, img, args.anisotropy, args.minsize)
+        cmd='runai submit --name {} --image {} --gpu {} --existing-pvc claimname=upoates-scratch,path=/scratch --command -- /usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose.py {} {} {} --diameter {} --channels {} --image "{}" --anisotropy {} --minsize {}'.format(name, args.image, args.gpu, args.input, args.output, args.model, args.diameter, channels, img, args.anisotropy, args.minsize)
 
         print(cmd)
         count+=1
