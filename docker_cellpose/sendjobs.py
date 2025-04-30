@@ -33,6 +33,7 @@ def main():
     parser.add_argument("--channels", "-c", default = [0,0], help="channels for the model", type=int, nargs='+')
     parser.add_argument("--test",  "-t", action="store_true",help="Run the first image as a test")
     parser.add_argument("--verbose",  "-v", action="store_true",help="Increase output verbosity")
+    parser.add_argument("--dry-run",  action="store_true",help="do not run the command, just print it")
     
     args = parser.parse_args()
     channels=" ".join(str(x) for x in args.channels)
@@ -56,12 +57,13 @@ def main():
 
         print(cmd)
         count+=1
-        outputCMD = getCommandOutput(cmd)
-        stderr=outputCMD["stderr"].split('\n')
-        stdout=outputCMD["stdout"].split('\n')
+        if args.dry_run==False:
+            outputCMD = getCommandOutput(cmd)
+            stderr=outputCMD["stderr"].split('\n')
+            stdout=outputCMD["stdout"].split('\n')
 
-        print('error:',stderr)
-        print('output'':',stdout)
+            print('error:',stderr)
+            print('output'':',stdout)
 
 
     #runai submit
