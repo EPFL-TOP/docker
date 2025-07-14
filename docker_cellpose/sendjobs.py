@@ -1,4 +1,4 @@
-#python sendjobs.py --name cellpose-test-2 --image registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 --gpu 1. --input /scratch/feyza/input/test2c --output /scratch/output/feyza --model /scratch/data/feyza/cellpose_training/2d/models/CP_20241007_h2bxncad -d 30 -c 2 1
+#python sendjobs.py --name cellpose-test-2 --image registry.rcp.epfl.ch/upoates-helsens/cellpose-env:v0.1 --gpu 1. --input /scratch/feyza/input/test2c --output /scratch/data/output/feyza --model /scratch/data/input/feyza/cellpose_training/2d/models/CP_20241007_h2bxncad -d 30 -c 2 1
 import argparse
 import os, sys, re
 import subprocess
