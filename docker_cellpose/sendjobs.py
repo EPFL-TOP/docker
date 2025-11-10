@@ -53,8 +53,25 @@ def main():
         safe_img_name = re.sub(r'[^a-z0-9]+', '-', img_base.lower()).strip('-')
         name = f"{args.name}-{safe_img_name}"
         print('sending image = ',img, '  with job name  ', name)
-        cmd='runai submit --name {} --image {} --gpu {} --existing-pvc claimname=upoates-scratch,path=/scratch --command -- /usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose_sam.py {} {} {} --diameter {} --channels {} --image "{}" --anisotropy {} --minsize {}'.format(name, args.image, args.gpu, args.input, args.output, args.model, args.diameter, channels, img, args.anisotropy, args.minsize)
+        #cmd='runai submit --name {} --image {} --gpu {} --existing-pvc claimname=upoates-scratch,path=/scratch --command -- /usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose_sam.py {} {} {} --diameter {} --channels {} --image "{}" --anisotropy {} --minsize {}'.format(name, args.image, args.gpu, args.input, args.output, args.model, args.diameter, channels, img, args.anisotropy, args.minsize)
 
+        cmd = (
+            'runai submit '
+            '--name {} '
+            '--image {} '
+            '--gpu {} '
+            '--existing-pvc claimname=upoates-scratch,path=/scratch '
+            '--command -- bash -c "'
+            'echo Copying model... && '
+            'mkdir -p /home/helsens/.cellpose/models/ &&'
+            'cp -R /scratch/data/cellpose/*  /home/helsens/.cellpose/models/ && '
+            '/usr/bin/python3 /home/helsens/3d_segmentation/3d_cellpose_sam.py {} {} {} '
+            '--diameter {} --channels {} --image \\"{}\\" --anisotropy {} --minsize {}"'
+        ).format(
+            name, args.image, args.gpu, args.input, args.output, args.model,
+            args.diameter, channels, img, args.anisotropy, args.minsize
+        )
+        
         print(cmd)
         count+=1
         if args.dry_run==False:
